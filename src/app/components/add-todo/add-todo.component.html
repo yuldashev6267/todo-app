@@ -1,0 +1,57 @@
+<div class="container">
+  <h1 class="text-secondary text-center">{{title}}</h1>
+  <div class="d-flex flex-column justify-content">
+    <form #todoForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="d-flex justify-content-center flex-column align-items-center">
+        <div class="col-6">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="form-control" id="title" [value]="todoTitle" placeholder="title"
+                 [(ngModel)]="todoTitle" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-6 mt-2">
+          <label for="description" class="form-label">Description</label>
+          <input type="text" class="form-control" id="description" [value]="todoDescription" placeholder="description"
+                 [(ngModel)]="todoDescription" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-6 mt-2">
+          <label for="colour">Colour</label>
+          <select #todoSelectColour class="form-select" aria-label="colour select" id="colour" name="colour" ngModel
+                  (ngModelChange)="onColorChanged($event)">
+            <option value="" disabled selected>{{todoColour != null ? todoColour : "Select your option" }}</option>
+            <option *ngFor="let color of colours" name="colour" [ngValue]="color.key">{{color.key}}</option>
+          </select>
+        </div>
+
+        <div class="col-6 mt-2">
+          <label for="priority">Priority</label>
+          <select #todoSelectPriority class="form-select" aria-label="priority select" id="priority" name="priority"
+                  ngModel (ngModelChange)="onPriorityChanged($event)">
+            <option value="" disabled selected>{{todoPriority != null ? todoPriority : "Select your option" }}</option>
+            <option *ngFor="let priority of priorities" name="priority"
+                    [ngValue]="priority.key">{{priority.key}}</option>
+          </select>
+        </div>
+        <form #addedTag class="d-flex flex-column justify-content-between col-6" (ngSubmit)="addTag()">
+          <div class="d-flex justify-content-between col-12">
+            <div class="col-10">
+              <label for="tag" class="form-label">Tag</label>
+              <input type="text" class="form-control" id="tag" [value]="tag" placeholder="Tag" [(ngModel)]="tag"
+                     [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="d-flex align-items-end">
+              <button class="btn btn-success" type="submit">Add Tag</button>
+            </div>
+            <div *ngFor="let tag of tags">
+              <button type="button" class="close" aria-label="Close" class="btn btn-secondary">
+                <span aria-hidden="true">&times;</span>{{tag.tag}}
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="text-center">
+          <button class="btn btn-primary mt-3" type="submit">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

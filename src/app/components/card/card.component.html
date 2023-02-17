@@ -1,0 +1,17 @@
+<div class="card mb-1 text-secondary text-center" style="max-width: 22rem" [style.background-color]="todo.color">
+  <div class="card-header">{{todo.title}}</div>
+  <div class="card-body">
+    <div class="card-title text-light">{{todo.description}}</div>
+  </div>
+  <div class="d-flex ms-2 me-1 mb-1">
+    <div>
+      <button class="btn btn-success text-light text-align-left" *ngIf="!todo.is_completed" (click)="completedTodo(todo)">Completed</button>
+    </div>
+    <div>
+      <button class="btn btn-primary text-light text-align-center mx-2" routerLink="/edit-todo" [state]="todo" *ngIf="!todo.is_completed">Edit</button>
+    </div>
+    <div>
+      <button class="btn btn-danger text-light" (click)="deleteTodo(todo)">Delete</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="container vh-100 my-5">
+  <div class="d-flex justify-content-center align-items-center flex-column">
+    <div class="d-flex justify-content-center flex-row col-11">
+      <form #searchTodoForm="ngForm" class="col-8 mt-3" (ngSubmit)="onSubmit()">
+        <div>
+          <div class="d-flex">
+            <input type="search" class="form-control" name="searchText" placeholder="search" [(ngModel)]="searchText" (keyup)="onKey($event)">
+            <button class="btn btn-secondary ms-1" type="submit">Search</button>
+          </div>
+        </div>
+      </form>
+      <div>
+        <a class="btn btn-primary ms-1 mt-3" routerLink="/add-todo">add todo</a>
+      </div>
+      <div>
+        <button class="btn btn-primary ms-1 mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#filterTodo" aria-expanded="false" aria-controls="filterTodo">
+          filter
+        </button>
+      </div>
+    </div>
+    <div class="collapse mt-2 col-9" id="filterTodo">
+      <div class="card card-body">
+        <app-filter-todo (filterTodoForm)="filterTodo($event)"/>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center flex-wrap">
+    <div class="ms-2 mt-2 col-3" *ngFor="let todo of todos">
+      <app-card [todo]="todo" (completedTodoEvent)="completedTodo($event)" (deleteTodoEvent)="deleteTodo($event)"/>
+    </div>
+  </div>
+  <nav *ngIf="todos.length > 1">
+    <ul class="pagination justify-content-center">
+      <li id="prev" class="page-item" [ngClass]="{ 'disabled': page === 1 }">
+        <button class="page-link"  (click)="previous()">Previous</button>
+      </li>
+      <ng-container *ngIf="todos">
+        <li class="page-item" *ngFor="let number of pageNumbers" [ngClass]="{ 'active': page === number }">
+          <button class="page-link" (click)="to(number)" >{{number}}</button>
+        </li>
+      </ng-container>
+      <li id="next" class="page-item" [ngClass]="{ 'disabled': page ===  pageNumbers.length }">
+        <button class="page-link" (click)="next()">Next</button>
+      </li>
+    </ul>
+  </nav>
+
+</div>
+

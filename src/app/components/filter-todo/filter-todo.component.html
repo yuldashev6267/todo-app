@@ -1,0 +1,35 @@
+<form #todoFilter="ngForm" (ngSubmit)="onSubmit()">
+  <div class="d-flex flex-wrap justify-content-between align-items-center">
+    <div class="d-flex justify-content-between col-12">
+      <div class="col-5">
+        <label for="tag" class="form-label">Tag Filter</label>
+        <input type="text" class="form-control" id="tag" placeholder="tag filter" name="tag" [(ngModel)]="tag">
+      </div>
+      <div class="col-5">
+        <label for="colour" class="form-label">Colour Filter</label>
+        <select #todoFilterColour class="form-select" aria-label="colour select" id="colour" name="colour" ngModel
+                (ngModelChange)="onColorChanged($event)">
+          <option value="" disabled selected>Select your option</option>
+          <option *ngFor="let color of colours" name="colour" [ngValue]="color.value">{{color.key}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between col-12">
+      <div class="col-5">
+        <label for="priority">Priority</label>
+        <select #todoFilterPriority class="form-select" aria-label="priority select" id="priority" name="priority"
+                ngModel (ngModelChange)="onPriorityChanged($event)">
+          <option value="" selected>{{priority != null ? priority : "Select your option" }}</option>
+          <option *ngFor="let priority of priorities" name="priority"
+                  [ngValue]="priority.value">{{priority.key}}</option>
+        </select>
+      </div>
+      <div class="d-flex align-items-end col-5">
+        <button type="button" class="btn btn-success" (click)="onDescChanged()">{{desc ? "Asc" : "Desc"}}</button>
+        <button type="button" class="btn btn-danger ms-2" (click)="clear()">clear filter</button>
+        <button type="submit" class="btn btn-secondary ms-2">Submit</button>
+      </div>
+    </div>
+  </div>
+</form>
