@@ -1,17 +1,19 @@
 <div class="container">
   <h1 class="text-secondary text-center">{{title}}</h1>
   <div class="d-flex flex-column justify-content">
-    <form #todoForm="ngForm" (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="onSubmit()" #todoForm="ngForm">
       <div class="d-flex justify-content-center flex-column align-items-center">
         <div class="col-6">
           <label for="title" class="form-label">Title</label>
-          <input type="text" class="form-control" id="title" [value]="todoTitle" placeholder="title"
+          <input type="text" class="form-control" id="title" name="todoTitle" #tt="ngModel" required [value]="todoTitle" placeholder="title"
                  [(ngModel)]="todoTitle" [ngModelOptions]="{standalone: true}">
+          <div [hidden]="tt.valid || tt.pristine" class="alert alert-danger mt-2">Title is required</div>
         </div>
         <div class="col-6 mt-2">
           <label for="description" class="form-label">Description</label>
-          <input type="text" class="form-control" id="description" [value]="todoDescription" placeholder="description"
+          <input type="text" class="form-control mt-1" id="description" name="description" #description="ngModel" required [value]="todoDescription" placeholder="description"
                  [(ngModel)]="todoDescription" [ngModelOptions]="{standalone: true}">
+          <div [hidden]="description.valid || description.pristine" class="alert alert-danger mt-2">Description is required</div>
         </div>
         <div class="col-6 mt-2">
           <label for="colour">Colour</label>
@@ -52,8 +54,8 @@
         </div>
 
         <div class="text-center">
-          <button class="btn btn-primary mt-3" type="submit">Submit</button>
         </div>
+        <button class="btn btn-primary mt-3" type="submit" [disabled]="!tt.valid || !description.valid">Submit</button>
       </div>
     </form>
   </div>

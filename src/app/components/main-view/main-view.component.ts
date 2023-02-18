@@ -3,7 +3,6 @@ import {todo} from "../../models/todo";
 import {TodoServiceService} from "../../services/todo-service.service";
 import {NavigationStart, Router, Event} from "@angular/router";
 import {todoFilter} from "../../models/filter";
-import {map} from "rxjs";
 
 @Component({
   selector: 'app-main-view',
@@ -55,13 +54,12 @@ export class MainViewComponent {
   }
 
   fetchTodoCount() {
-    let c = 0
+    this.pageNumbers = []
     this.todoService.getTodosCount(this.filter).subscribe(count=>{
       for(let i = 1;i<=Math.ceil(count/this.limit);i++){
         this.pageNumbers.push(i)
       }
     })
-    console.log(c)
   }
 
   searchTodos(searchText: string) {
@@ -119,6 +117,7 @@ export class MainViewComponent {
       },
       complete() {
         vm.todos = []
+        vm.fetchTodoCount()
         vm.fetchTodos(vm.filter, vm.recalculateSkip(vm.page), vm.limit)
       }
     })

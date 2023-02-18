@@ -30,7 +30,7 @@
         <app-card [todo]="todo" (completedTodoEvent)="completedTodo($event)" (deleteTodoEvent)="deleteTodo($event)"/>
       </div>
     </div>
-    <nav class="" *ngIf="todos.length > 1">
+    <nav class="" *ngIf="pageNumbers.length > 1">
       <ul class="pagination justify-content-center">
         <li id="prev" class="page-item" [ngClass]="{ 'disabled': page === 1 }">
           <button class="page-link"  (click)="previous()">Previous</button>

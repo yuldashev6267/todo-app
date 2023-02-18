@@ -10,6 +10,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {CardComponent} from "./components/card/card.component";
 import {FormsModule} from "@angular/forms";
 import { FilterTodoComponent } from './components/filter-todo/filter-todo.component';
+import {CommonModule} from "@angular/common";
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +25,7 @@ import { FilterTodoComponent } from './components/filter-todo/filter-todo.compon
     RouterModule,
     AppRoutingModule,
     NgbModule,
+    CommonModule,
     FormsModule,
     NgbPaginationModule
   ],

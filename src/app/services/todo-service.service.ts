@@ -83,13 +83,14 @@ export class TodoServiceService {
     return this.http.post(`${this.url}/api/delete/${id}`, {})
   }
 
-  editTodo(todo: editTodoModel) {
-    return this.http.post(`${this.url}/api/edit`, {
+  editTodo(todo: editTodoModel) : Observable<todo>{
+    return this.http.post<todo>(`${this.url}/api/edit`, {
       id: todo.id,
       title: todo.title,
       description: todo.description,
       color: todo.colour,
-      priority: todo.priority
+      priority: todo.priority,
+      tags:todo.tags
     })
   }
 
