@@ -1,9 +1,11 @@
+import {tag} from "./tag";
+
 export interface todoModel {
   title: string
   description: string
   colour: number
   priority: number
-  tagIds : number[]
+  tags : string[]
 }
 
 export interface todo {
@@ -17,6 +19,7 @@ export interface todo {
   description: string
   priority: string
   color: string
+  tags : tag[]
 }
 
 export interface editTodoModel {
@@ -25,4 +28,5 @@ export interface editTodoModel {
   description: string
   colour: number | null
   priority: number | null
+  tags:string[]
 }

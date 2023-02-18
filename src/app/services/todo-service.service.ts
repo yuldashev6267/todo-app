@@ -61,18 +61,18 @@ export class TodoServiceService {
     return this.http.get<number>(`${url}`)
   }
 
-  insertTodo(todo: todoModel) {
-    return this.http.post<todoModel>(`${this.url}/api/create`, {
+  insertTodo(todo: todoModel) :Observable<todo> {
+    return this.http.post<todo>(`${this.url}/api/create`, {
       title: todo.title,
       description: todo.description,
       colour: todo.colour,
       priority: todo.priority,
-      TagIds: todo.tagIds
+      tags: todo.tags
     })
   }
 
-  searchTodo(text: string) {
-    return this.http.get(`${this.url}/api/get?searchText=${text}`)
+  searchTodo(text: string):Observable<todo> {
+    return this.http.get<todo>(`${this.url}/api/get?searchText=${text}`)
   }
 
   completeTodo(id: number) {

@@ -24,26 +24,27 @@
       </div>
     </div>
   </div>
-  <div class="d-flex justify-content-center flex-wrap">
-    <div class="ms-2 mt-2 col-3" *ngFor="let todo of todos">
-      <app-card [todo]="todo" (completedTodoEvent)="completedTodo($event)" (deleteTodoEvent)="deleteTodo($event)"/>
+  <div class="d-flex flex-column justify-content-between" style="min-height: 85vh">
+    <div class="d-flex justify-content-center flex-wrap">
+      <div class="ms-2 mt-2 col-3" *ngFor="let todo of todos">
+        <app-card [todo]="todo" (completedTodoEvent)="completedTodo($event)" (deleteTodoEvent)="deleteTodo($event)"/>
+      </div>
     </div>
-  </div>
-  <nav *ngIf="todos.length > 1">
-    <ul class="pagination justify-content-center">
-      <li id="prev" class="page-item" [ngClass]="{ 'disabled': page === 1 }">
-        <button class="page-link"  (click)="previous()">Previous</button>
-      </li>
-      <ng-container *ngIf="todos">
-        <li class="page-item" *ngFor="let number of pageNumbers" [ngClass]="{ 'active': page === number }">
-          <button class="page-link" (click)="to(number)" >{{number}}</button>
+    <nav class="" *ngIf="todos.length > 1">
+      <ul class="pagination justify-content-center">
+        <li id="prev" class="page-item" [ngClass]="{ 'disabled': page === 1 }">
+          <button class="page-link"  (click)="previous()">Previous</button>
         </li>
-      </ng-container>
-      <li id="next" class="page-item" [ngClass]="{ 'disabled': page ===  pageNumbers.length }">
-        <button class="page-link" (click)="next()">Next</button>
-      </li>
-    </ul>
-  </nav>
-
+        <ng-container *ngIf="todos">
+          <li class="page-item" *ngFor="let number of pageNumbers" [ngClass]="{ 'active': page === number }">
+            <button class="page-link" (click)="to(number)" >{{number}}</button>
+          </li>
+        </ng-container>
+        <li id="next" class="page-item" [ngClass]="{ 'disabled': page ===  pageNumbers.length }">
+          <button class="page-link" (click)="next()">Next</button>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </div>
 

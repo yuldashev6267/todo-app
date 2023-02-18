@@ -3,8 +3,8 @@ import {colour} from "../../models/colour";
 import {colours, convertColourKeyToValue} from "../../helpers/colours"
 import {priority} from "../../models/priority";
 import {convertPriorityLevelKeyToValue, priorities} from "../../helpers/priority-list";
-import {editTodoModel, todo, todoModel} from "../../models/todo"
-import {ActivatedRoute, Route, Router} from "@angular/router";
+import {editTodoModel, todoModel} from "../../models/todo"
+import {ActivatedRoute, Router} from "@angular/router";
 import {TodoServiceService} from "../../services/todo-service.service";
 import {tag} from "../../models/tag";
 import {TagService} from "../../services/tag.service";
@@ -25,8 +25,8 @@ export class AddTodoComponent implements OnInit {
   todoDescription: string = ''
   todoColour: string = colours[0].key
   todoPriority: string = priorities[0].key
-  tag: string = ''
-  tags: tag[] = []
+  tag: string | null = null
+  tags: string[] = []
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private todoService: TodoServiceService, private tagService: TagService) {
 
@@ -50,18 +50,19 @@ export class AddTodoComponent implements OnInit {
       this.todoDescription = history.state.description
       this.todoColour = history.state.color
       this.todoPriority = history.state.priority_level
-      console.log(history.state)
+      if (history.state.tags.length > 0) {
+        history.state.tags.map(((el:any)=>{this.tags.push(el.tag)}))
+      }
     }
   }
 
   onSubmit() {
-    const tagIds = this.tags.map(el => el.id)
     const todoModel: todoModel = {
       title: this.todoTitle,
       description: this.todoDescription,
       colour: convertColourKeyToValue(this.todoColour),
       priority: convertPriorityLevelKeyToValue(this.todoPriority),
-      tagIds: tagIds
+      tags: this.tags
     }
 
     if (this.isEditable) {
@@ -70,7 +71,8 @@ export class AddTodoComponent implements OnInit {
         title: this.todoTitle,
         description: this.todoDescription,
         colour: convertColourKeyToValue(this.todoColour),
-        priority: convertPriorityLevelKeyToValue(this.todoPriority)
+        priority: convertPriorityLevelKeyToValue(this.todoPriority),
+        tags:this.tags
       }
 
       this.todoService.editTodo(editTodoModel).subscribe()
@@ -90,22 +92,13 @@ export class AddTodoComponent implements OnInit {
   }
 
   addTag() {
-    const vm = this
-    this.tagService.addTag(this.tag).subscribe({
-      next(response) {
-        const newTag = Object.values(response)
-        const tag: tag = {
-          id: newTag[0],
-          tag: newTag[1],
-          usage: newTag[2]
-        }
-
-        vm.tags.push(tag)
-      },
-      error(err) {
-        console.log(err)
-      },
-    })
+    if (this.tag != null) {
+      this.tags.push(this.tag)
+      this.tag = null
+    }
   }
 
+  clearTag(tag: string) {
+    this.tags= this.tags.filter(el=>el != tag)
+  }
 }

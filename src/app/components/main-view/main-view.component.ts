@@ -106,7 +106,7 @@ export class MainViewComponent {
       },
       complete() {
         vm.todos = []
-        vm.fetchTodos(vm.filter, 0, 9)
+        vm.fetchTodos(vm.filter, vm.recalculateSkip(vm.page), vm.limit)
       }
     })
   }
@@ -119,7 +119,7 @@ export class MainViewComponent {
       },
       complete() {
         vm.todos = []
-        vm.fetchTodos(vm.filter, 0, 9)
+        vm.fetchTodos(vm.filter, vm.recalculateSkip(vm.page), vm.limit)
       }
     })
     this.pageNumbers = []

@@ -41,13 +41,16 @@
             <div class="d-flex align-items-end">
               <button class="btn btn-success" type="submit">Add Tag</button>
             </div>
-            <div *ngFor="let tag of tags">
-              <button type="button" class="close" aria-label="Close" class="btn btn-secondary">
-                <span aria-hidden="true">&times;</span>{{tag.tag}}
-              </button>
-            </div>
           </div>
         </form>
+        <div class="d-flex flex-wrap col-6 mt-1">
+          <div class="m-1" *ngFor="let tag of tags">
+            <button type="button" class="close" aria-label="Close" class="btn btn-secondary" (click)="clearTag(tag)">
+              <span aria-hidden="true">&times;</span>{{tag}}
+            </button>
+          </div>
+        </div>
+
         <div class="text-center">
           <button class="btn btn-primary mt-3" type="submit">Submit</button>
         </div>
